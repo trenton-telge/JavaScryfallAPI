@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -18,10 +19,11 @@ import org.json.simple.parser.ParseException;
  * @author ForOhForError
  */
 
+@SuppressWarnings({"unused", "DuplicatedCode"})
 public class MTGCardQuery {
 
 	private static final String API_URI = "https://api.scryfall.com";
-	private static JSONParser JSON_PARSER = new JSONParser();
+	private static final JSONParser JSON_PARSER = new JSONParser();
 
 	/**
 	 * Returns a list of card objects containing all cards matching any
@@ -34,7 +36,7 @@ public class MTGCardQuery {
 	 */
 	public static ArrayList<Card> toCardList(Collection<String> cardnames, boolean listDuplicates)
 	{
-		ArrayList<Card> result = new ArrayList<Card>();
+		ArrayList<Card> result = new ArrayList<>();
 		for(String cardname:cardnames)
 		{
 			String query;
@@ -62,33 +64,33 @@ public class MTGCardQuery {
 			URLConnection conn = url.openConnection();
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(
-					conn.getInputStream(), "UTF-8"));
+					conn.getInputStream(), StandardCharsets.UTF_8));
 
 
-			String json = "";
+			StringBuilder json = new StringBuilder();
 			String line = "";
 			while(line != null)
 			{
-				json+=line;
+				json.append(line);
 				line = in.readLine();
 			}
 
 			JSONObject root = null;
 			try {
-				root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json);
-			} catch (ParseException e) {
+				root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json.toString());
+			} catch (ParseException ignored) {
 			}
 
 			in.close();
 
+			assert root != null;
 			JSONArray sets = (JSONArray)root.get("data");
 
-			for (int i = 0; i < sets.size(); i++)
-			{
-				JSONObject setData = ((JSONObject)sets.get(i));
+			for (Object set : sets) {
+				JSONObject setData = ((JSONObject) set);
 				s.add(new Set(setData));
 			}
-		}catch(IOException e){
+		}catch(IOException ignored){
 
 		}
 		return s;
@@ -106,8 +108,8 @@ public class MTGCardQuery {
 		String escapedQuery = "";
 		try{
 			escapedQuery = URLEncoder.encode(query,"UTF-8");
-		}catch(IOException e){}
-		String uri = API_URI+"/cards/search?q="+escapedQuery;
+		}catch(IOException ignored){}
+		String uri = API_URI+"/cards/search?unique=prints&q="+escapedQuery;
 
 		return getCardsFromURI(uri);
 	}
@@ -122,20 +124,20 @@ public class MTGCardQuery {
 		URL url = new URL("https://api.scryfall.com/cards/"+id);
 		URLConnection conn = url.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(
-				conn.getInputStream(), "UTF-8"));
+				conn.getInputStream(), StandardCharsets.UTF_8));
 
-		String json = "";
+		StringBuilder json = new StringBuilder();
 		String line = "";
 		while(line != null)
 		{
-			json+=line;
+			json.append(line);
 			line = in.readLine();
 		}
 
 		JSONObject root = null;
 		try {
-			root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json);
-		} catch (ParseException e) {
+			root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json.toString());
+		} catch (ParseException ignored) {
 		}
 
 		in.close();
@@ -153,24 +155,24 @@ public class MTGCardQuery {
 		String escapedQuery = "";
 		try{
 			escapedQuery = URLEncoder.encode(uri,"UTF-8");
-		}catch(IOException e){}
+		}catch(IOException ignored){}
 		URL url = new URL(escapedQuery);
 		URLConnection conn = url.openConnection();
 		BufferedReader in = new BufferedReader(new InputStreamReader(
-				conn.getInputStream(), "UTF-8"));
+				conn.getInputStream(), StandardCharsets.UTF_8));
 
-		String json = "";
+		StringBuilder json = new StringBuilder();
 		String line = "";
 		while(line != null)
 		{
-			json+=line;
+			json.append(line);
 			line = in.readLine();
 		}
 
 		JSONObject root = null;
 		try {
-			root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json);
-		} catch (ParseException e) {
+			root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json.toString());
+		} catch (ParseException ignored) {
 		}
 
 		in.close();
@@ -191,42 +193,42 @@ public class MTGCardQuery {
 			URLConnection conn = url.openConnection();
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(
-					conn.getInputStream(), "UTF-8"));
+					conn.getInputStream(), StandardCharsets.UTF_8));
 
 
-			String json = "";
+			StringBuilder json = new StringBuilder();
 			String line = "";
 			while(line != null)
 			{
-				json+=line;
+				json.append(line);
 				line = in.readLine();
 			}
 
 			JSONObject root = null;
 			try {
-				root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json);
-			} catch (ParseException e) {
+				root = (JSONObject)MTGCardQuery.JSON_PARSER.parse(json.toString());
+			} catch (ParseException ignored) {
 			}
 
 			in.close();
 
+			assert root != null;
 			JSONArray jsonCards = (JSONArray)root.get("data");
 
-			for (int i = 0; i < jsonCards.size(); i++)
-			{
-				JSONObject cardData = ((JSONObject)jsonCards.get(i));
+			for (Object jsonCard : jsonCards) {
+				JSONObject cardData = ((JSONObject) jsonCard);
 				cards.add(new Card(cardData));
 			}
 
-			if(root.containsKey("has_more") && ((Boolean)root.get("has_more")).booleanValue()){
+			if(root.containsKey("has_more") && (Boolean) root.get("has_more")){
 				String next = (String)root.get("next_page");
 				try {
 					//Requested wait time between queries
 					Thread.sleep(50);
-				} catch (InterruptedException e) { }
+				} catch (InterruptedException ignored) { }
 				cards.addAll(getCardsFromURI(next));
 			}
-		}catch(IOException e){
+		}catch(IOException ignored){
 
 		}
 
