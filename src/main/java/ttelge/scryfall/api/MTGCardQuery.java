@@ -187,7 +187,7 @@ public class MTGCardQuery {
 	 */
 	public static ArrayList<Card> getCardsFromURI(String uri)
 	{
-		ArrayList<Card> cards = new ArrayList<Card>();
+		ArrayList<Card> cards = new ArrayList<>();
 		try{
 			URL url = new URL(uri);
 			URLConnection conn = url.openConnection();

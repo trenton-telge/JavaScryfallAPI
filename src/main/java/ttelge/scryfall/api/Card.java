@@ -21,15 +21,16 @@ import org.json.simple.JSONObject;
  * @author ForOhForError
  */
 
+@SuppressWarnings("unused")
 public class Card {
 	private ArrayList<CardReference> allParts;
 	private ArrayList<CardFace> cardFaces;
 
-	private JSONObject json;
+	private final JSONObject json;
 
 	/**
 	 * Constructs a Card object from a JSON object
-	 * @param cardData
+	 * @param cardData JSON data for the card object
 	 */
 	public Card(JSONObject cardData)
 	{
@@ -80,11 +81,12 @@ public class Card {
 	/**
 	 * Utility method for reading each part of multipart cards.
 	 */
+	@SuppressWarnings("SameParameterValue")
 	private static ArrayList<CardReference> getReferences(JSONObject data, String key)
 	{
 		Object obj = data.get(key);
 
-		ArrayList<CardReference> refs = new ArrayList<CardReference>();
+		ArrayList<CardReference> refs = new ArrayList<>();
 		if(obj!=null){
 			JSONArray arr = (JSONArray)obj;
 			for(Object o:arr)
@@ -99,11 +101,12 @@ public class Card {
 	/**
 	 * Utility method for reading each part of multifaced cards.
 	 */
+	@SuppressWarnings("SameParameterValue")
 	private static ArrayList<CardFace> getFaces(JSONObject data, String key)
 	{
 		Object obj = data.get(key);
 
-		ArrayList<CardFace> refs = new ArrayList<CardFace>();
+		ArrayList<CardFace> refs = new ArrayList<>();
 		if(obj!=null){
 			JSONArray arr = (JSONArray)obj;
 			for(Object o:arr)
@@ -131,7 +134,7 @@ public class Card {
 		return allParts != null && allParts.size() > 0;
 	}
 
-	/**
+	/*
 	 * BEGIN: Core Card Fields
 	 */
 
@@ -240,7 +243,7 @@ public class Card {
 		return JSONUtil.getStringData(json, "uri");
 	}
 
-	/**
+	/*
 	 * BEGIN: Gameplay Fields
 	 */
 
@@ -452,7 +455,7 @@ public class Card {
 		return JSONUtil.getStringData(json, "type_line");
 	}
 
-	/**
+	/*
 	 * BEGIN: Print Fields
 	 */
 
@@ -814,10 +817,7 @@ public class Card {
 		} else if (!getName().equals(other.getName()))
 			return false;
 		if (getSetCode() == null) {
-			if (other.getSetCode() != null)
-				return false;
-		} else if (!getSetCode().equals(other.getSetCode()))
-			return false;
-		return true;
+			return other.getSetCode() == null;
+		} else return getSetCode().equals(other.getSetCode());
 	}
 }

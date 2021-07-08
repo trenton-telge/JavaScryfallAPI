@@ -17,8 +17,10 @@ import org.json.simple.JSONObject;
  * @author ForOhForError
  */
 
+@SuppressWarnings("unused")
 public class CardFace {
-	private JSONObject json;
+
+	private final JSONObject json;
 	
 	public CardFace(JSONObject cardData)
 	{

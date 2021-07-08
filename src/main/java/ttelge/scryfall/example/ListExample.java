@@ -11,8 +11,8 @@ import ttelge.scryfall.api.MTGCardQuery;
  */
 
 public class ListExample {
-	public static void main(String[] args) throws Exception {
-		ArrayList<String> cardnames = new ArrayList<String>();
+	public static void main(String[] args) {
+		ArrayList<String> cardnames = new ArrayList<>();
 		Scanner scan = new Scanner(System.in);
 		String query = " ";
 		while (!query.equals("")) {

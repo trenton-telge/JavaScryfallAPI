@@ -4,7 +4,7 @@ import ttelge.scryfall.api.Set;
 
 
 public class SetExample {
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		for(Set set: MTGCardQuery.getSets())
 		{
 			System.out.println(set.getName());

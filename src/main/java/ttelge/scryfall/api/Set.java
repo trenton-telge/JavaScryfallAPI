@@ -10,9 +10,10 @@ import org.json.simple.JSONObject;
  * @author ForOhForError
  */
 
+@SuppressWarnings("unused")
 public class Set {
 
-	private JSONObject json;
+	private final JSONObject json;
 
 	/**
 	 * Builds a Set object from JSON data.

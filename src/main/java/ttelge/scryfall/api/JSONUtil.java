@@ -1,10 +1,12 @@
 package ttelge.scryfall.api;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Utility class, mostly for dealing with casting JSON objects when they
@@ -12,6 +14,7 @@ import org.json.simple.JSONObject;
  * @author ForOhForError
  */
 
+@SuppressWarnings("unused")
 public class JSONUtil {
 	public static String getStringData(JSONObject data, String key)
 	{
@@ -85,7 +88,7 @@ public class JSONUtil {
 			return null;
 		}
 		
-		HashMap<String,String> map = new HashMap<String,String>();
+		HashMap<String,String> map = new HashMap<>();
 		
 		JSONObject o = (JSONObject)obj;
 		for(Object k:o.keySet())
@@ -168,14 +171,12 @@ public class JSONUtil {
 		{
 			return null;
 		}
-		String[] isoSplit = date.split("-");
-		Calendar c = Calendar.getInstance();
-		c.set(
-				Integer.parseInt(isoSplit[0]), 
-				Integer.parseInt(isoSplit[1]), 
-				Integer.parseInt(isoSplit[2])
-		);
-		return c.getTime();
+		try {
+			return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static JSONObject getObject(JSONObject data, String key)

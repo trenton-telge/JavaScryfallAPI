@@ -13,7 +13,7 @@ import org.json.simple.JSONObject;
 
 public class CardReference {
 
-	private JSONObject json;
+	private final JSONObject json;
 	private Card card;
 
 	/**

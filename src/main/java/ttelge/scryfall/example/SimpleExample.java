@@ -6,7 +6,7 @@ import ttelge.scryfall.api.MTGCardQuery;
 
 
 public class SimpleExample {
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		String query = "Sky Hussar";
 		ArrayList<Card> cards = MTGCardQuery.search(query);
 
