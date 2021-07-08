@@ -1,6 +1,7 @@
-# ScryfallAPIBinding
+# JavaScryfallAPI
 
 [![Build](https://github.com/trenton-telge/ScryfallAPIBinding/actions/workflows/maven.yml/badge.svg)](https://github.com/trenton-telge/ScryfallAPIBinding/actions/workflows/maven.yml)
+[![CodeQL Security Check](https://github.com/trenton-telge/JavaScryfallAPI/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/trenton-telge/JavaScryfallAPI/actions/workflows/codeql-analysis.yml)
 
 Provides programmatic access to ScryFall's API in Java.
 
