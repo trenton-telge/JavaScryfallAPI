@@ -1,5 +1,7 @@
 # ScryfallAPIBinding
 
+[![Build](https://github.com/trenton-telge/ScryfallAPIBinding/actions/workflows/maven.yml/badge.svg)](https://github.com/trenton-telge/ScryfallAPIBinding/actions/workflows/maven.yml)
+
 Provides programmatic access to ScryFall's API in Java.
 
 ## Usage:
