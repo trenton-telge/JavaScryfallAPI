@@ -1,8 +1,8 @@
-package forohfor.scryfall.example;
+package ttelge.scryfall.example;
 import java.util.ArrayList;
 
-import forohfor.scryfall.api.Card;
-import forohfor.scryfall.api.MTGCardQuery;
+import ttelge.scryfall.api.Card;
+import ttelge.scryfall.api.MTGCardQuery;
 
 
 public class SimpleExample {

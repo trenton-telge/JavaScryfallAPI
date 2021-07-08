@@ -1,6 +1,6 @@
-package forohfor.scryfall.example;
-import forohfor.scryfall.api.MTGCardQuery;
-import forohfor.scryfall.api.Set;
+package ttelge.scryfall.example;
+import ttelge.scryfall.api.MTGCardQuery;
+import ttelge.scryfall.api.Set;
 
 
 public class SetExample {
